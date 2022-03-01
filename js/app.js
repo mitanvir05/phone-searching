@@ -1,5 +1,5 @@
 const allPhones = () => {
-    document.getElementById("phone-container").innerHTML = '';
+    document.getElementById("phone-container").textContent = '';
     const searchValue = document.getElementById("search-box").value;
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchValue}`;
     fetch(url)
@@ -36,16 +36,17 @@ const details = (id) => {
 const setDetails = (info) => {
     console.log(info);
     document.getElementById("details-container").innerHTML = `
-            <div class="card border p-5 ">
+            <div class = "card border p-5">
                 <div class="pro-pic p-2">
                     <img class="w-25" src="${info.image}" alt="">
                 </div>
-                <h3>Name : ${info.name}</h3>
+                <h3 class="">Name : ${info.name}</h3>
                 <h4>Brand : ${info.brand}</h4>
-                <h4> Release : ${info.releaseDate}</h4>
+                <h4> Release : ${info.releaseDate ? info.releaseDate : "Release Date Not Found !!!!!" }</h4>
                 <h4> Chipset : ${info.mainFeatures.chipSet}</h4>
-                <h4> Dislay : ${info.mainFeatures.displaySize}</h4>
                 <h4> Sensor : ${info.mainFeatures.sensors}</h4>
+                <h4> Display : ${info.mainFeatures.displaySize}</h4>
                 
-            </div>`;
+                
+            <div/>`;
 };
