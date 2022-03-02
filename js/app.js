@@ -18,7 +18,6 @@ const allPhones = () => {
 };
 
 // showing phone 
-
 const showPhone = (phones) => {
     document.getElementById("error-show").textContent = '';
     const errorShow = document.getElementById("error-show");
