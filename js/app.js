@@ -2,19 +2,33 @@ const allPhones = () => {
     document.getElementById("details-container").textContent = '';
     document.getElementById("phone-container").textContent = '';
     const searchValue = document.getElementById("search-box").value;
+    const errorShow = document.getElementById("error-show");
+
     if (searchValue == '') {
-        return alert('Please Enter Phone Name');
+        errorShow.innerText = ('Please Enter Brand Name');
+    } 
+    else if (searchValue <= 0) {
+        errorShow.innerText = ('Please Enter Brand Name');
     }
-    const url = `https://openapi.programming-hero.com/api/phones?search=${searchValue}`;
-    fetch(url)
-        .then((response) => response.json())
-        .then(data => showPhone(data.data.slice(0, 20)));
-    document.getElementById("search-box").value = '';
+    else{
+        const url = `https://openapi.programming-hero.com/api/phones?search=${searchValue}`;
+        fetch(url)
+            .then((response) => response.json())
+            .then(data => showPhone(data.data.slice(0, 20)));
+        document.getElementById("search-box").value = '';
+    }
 };
+
 // showing phone 
 
 const showPhone = (phones) => {
-    for (const data of phones) {
+    document.getElementById("error-show").textContent = '';
+    const errorShow = document.getElementById("error-show");
+    if (phones.length === 0) {
+        errorShow.innerText = ('Sorry ! No Phone Found');
+    }
+    else{
+          for (const data of phones) {
         const parent = document.getElementById("phone-container");
         const div = document.createElement("div");
         div.innerHTML = `<div class="card border p-5 ">
@@ -29,9 +43,9 @@ const showPhone = (phones) => {
             </div>`;
         parent.appendChild(div);
     }
-
+    }
 };
-// details scetion 
+// details section 
 const details = (id) => {
     const url = `https://openapi.programming-hero.com/api/phone/${id}`;
     fetch(url)
@@ -61,7 +75,5 @@ const setDetails = (info) => {
                 <h4> Radio : ${info?.others?.Radio ? info?.others?.Radio : "Info Not Found !"}</h4>
                 <h4> USB : ${info?.others?.USB ? info?.others?.USB : "Info Not Found !"}</h4>       
             <div/>`;
-            window.scrollTo(0,0);
-
-
+    window.scrollTo(0, 100);
 };
