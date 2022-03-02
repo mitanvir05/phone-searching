@@ -6,11 +6,9 @@ const allPhones = () => {
 
     if (searchValue == '') {
         errorShow.innerText = ('Please Enter Brand Name');
-    } 
-    else if (searchValue <= 0) {
+    } else if (searchValue <= 0) {
         errorShow.innerText = ('Please Enter Brand Name');
-    }
-    else{
+    } else {
         const url = `https://openapi.programming-hero.com/api/phones?search=${searchValue}`;
         fetch(url)
             .then((response) => response.json())
@@ -26,12 +24,11 @@ const showPhone = (phones) => {
     const errorShow = document.getElementById("error-show");
     if (phones.length === 0) {
         errorShow.innerText = ('Sorry ! No Phone Found');
-    }
-    else{
-          for (const data of phones) {
-        const parent = document.getElementById("phone-container");
-        const div = document.createElement("div");
-        div.innerHTML = `<div class="card border p-5 ">
+    } else {
+        for (const data of phones) {
+            const parent = document.getElementById("phone-container");
+            const div = document.createElement("div");
+            div.innerHTML = `<div class="card border p-5 ">
                 <div class="pro-pic p-2">
                     <img class="w-25" src="${data.image}" alt="">
                 </div>
@@ -41,8 +38,8 @@ const showPhone = (phones) => {
                     <button onclick="details('${data.slug}')" class="btn btn-success">Details</button>
                 </div>
             </div>`;
-        parent.appendChild(div);
-    }
+            parent.appendChild(div);
+        }
     }
 };
 // details section 
@@ -53,6 +50,7 @@ const details = (id) => {
         .then(data => setDetails(data.data));
 
 };
+
 const setDetails = (info) => {
     document.getElementById("details-container").innerHTML = `
             <div class = "card border p-5">
@@ -62,12 +60,14 @@ const setDetails = (info) => {
                 <h3 class="">Name : ${info.name}</h3>
                 <h4>Brand : ${info.brand}</h4>
                 <h4> ReleaseDate : ${info.releaseDate ? info.releaseDate : "Release Date Not Found !!!!!" }</h4>
+                <h4 class="font-weight-bold text-primary text-center">MainFeatures</h4>
                 <h4> Storage : ${info.mainFeatures.storage}</h4>
                 <h4> DisplaySize : ${info.mainFeatures.displaySize}</h4> 
                 <h4> Chipset : ${info.mainFeatures.chipSet}</h4>
                 <h4> Memory : ${info.mainFeatures.memory}</h4>
+                <h3 class="font-weight-bold text-primary text-center">Sensors</h3>
                 <h4> Sensors : ${info.mainFeatures.sensors}</h4>
-                <h4>Others : </h4>
+                <h4 class = "font-weight-bold text-primary text-center">Others Info </h4>
                 <h4> WLAN : ${info?.others?.WLAN ? info?.others?.WLAN:"Info Not Found !" }</h4>
                 <h4> Bluetooth : ${info?.others?.Bluetooth ? info?.others?.Bluetooth :"Info Not Found!"}</h4>
                 <h4> GPS : ${info?.others?.GPS ? info?.others?.GPS : "Info Not Found !"}</h4>
