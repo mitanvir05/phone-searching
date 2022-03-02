@@ -2,12 +2,16 @@ const allPhones = () => {
     document.getElementById("details-container").textContent = '';
     document.getElementById("phone-container").textContent = '';
     const searchValue = document.getElementById("search-box").value;
+    if (searchValue == '') {
+        return alert('Please Enter Phone Name');
+    }
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchValue}`;
     fetch(url)
         .then((response) => response.json())
         .then(data => showPhone(data.data.slice(0, 20)));
     document.getElementById("search-box").value = '';
 };
+// showing phone 
 
 const showPhone = (phones) => {
     for (const data of phones) {
@@ -27,7 +31,7 @@ const showPhone = (phones) => {
     }
 
 };
-
+// details scetion 
 const details = (id) => {
     const url = `https://openapi.programming-hero.com/api/phone/${id}`;
     fetch(url)
@@ -38,7 +42,7 @@ const details = (id) => {
 const setDetails = (info) => {
     document.getElementById("details-container").innerHTML = `
             <div class = "card border p-5">
-                <div class="pro-pic p-2">
+                <div div class = "pro-pic p-2 text-center" >
                     <img class="w-25" src="${info.image}" alt="">
                 </div>
                 <h3 class="">Name : ${info.name}</h3>
@@ -50,13 +54,14 @@ const setDetails = (info) => {
                 <h4> Memory : ${info.mainFeatures.memory}</h4>
                 <h4> Sensors : ${info.mainFeatures.sensors}</h4>
                 <h4>Others : </h4>
-                <h4> WLAN : ${info.others.WLAN ? info.others.WLAN:"Info Not Found !" }</h4>
-                <h4> Bluetooth : ${info.others.Bluetooth ? info.others.Bluetooth :"Info Not Found!"}</h4>
-                <h4> GPS : ${info.others.GPS ? info.others.GPS : "Info Not Found !"}</h4>
-                <h4> NFC : ${info.others.NFC ? info.others.NFC : "Info Not Found !"}</h4>
-                <h4> Radio : ${info.others.Radio ? info.others.Radio : "Info Not Found !"}</h4>
-                <h4> USB : ${info.others.USB ? info.others.USB : "Info Not Found !"}</h4>       
+                <h4> WLAN : ${info?.others?.WLAN ? info?.others?.WLAN:"Info Not Found !" }</h4>
+                <h4> Bluetooth : ${info?.others?.Bluetooth ? info?.others?.Bluetooth :"Info Not Found!"}</h4>
+                <h4> GPS : ${info?.others?.GPS ? info?.others?.GPS : "Info Not Found !"}</h4>
+                <h4> NFC : ${info?.others?.NFC ? info?.others?.NFC : "Info Not Found !"}</h4>
+                <h4> Radio : ${info?.others?.Radio ? info?.others?.Radio : "Info Not Found !"}</h4>
+                <h4> USB : ${info?.others?.USB ? info?.others?.USB : "Info Not Found !"}</h4>       
             <div/>`;
+            window.scrollTo(0,0);
 
 
 };
